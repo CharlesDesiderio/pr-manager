@@ -1,6 +1,8 @@
-const Editor = () => {
+const Editor = (props) => {
   return (
-    <div>Editor</div>
+    <div>
+      <textarea onChange={(event) => props.setData(event.target.value)} value={props.data} />
+    </div>
   )
 }
 

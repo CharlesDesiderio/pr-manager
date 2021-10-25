@@ -1,10 +1,10 @@
+import React from 'react'
+import ReactMarkdown from 'react-markdown'
+
 const Output = (props) => {
   return (
     <div>
-    OUTPUT
-      { props.data.map((item) => {
-        return <div>{props.array[item].title} { props.array[item].text }</div>
-      }) }
+      <ReactMarkdown>{props.data}</ReactMarkdown>
     </div>
   )
 }
