@@ -1,6 +1,11 @@
-const Output = () => {
+const Output = (props) => {
   return (
-    <div>Output</div>
+    <div>
+    OUTPUT
+      { props.data.map((item) => {
+        return <div>{props.array[item].title} { props.array[item].text }</div>
+      }) }
+    </div>
   )
 }
 

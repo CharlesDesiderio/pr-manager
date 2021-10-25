@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import Editor from "./components/Editor"
+import Output from './components/Output'
 import Section from './components/Section'
 
 const App = () => {
@@ -46,6 +47,8 @@ const App = () => {
         return sectionState.includes(i) ? '' : <Section data={unused} />
       })
       }
+
+      <Output data={sectionState} array={sectionsArray} />
 
     </div>
   )
