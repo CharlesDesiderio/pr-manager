@@ -58,12 +58,26 @@ const App = () => {
     setSectionsState([...newState])
   }
 
+  const resetItem = (event) => {
+    let newState = sectionsState
+    newState[event.target.parentElement.id].text = sectionsArray[event.target.parentElement.id].text
+    setSectionsState([...newState])
+  }
+
+  const removeItem = (event) => {
+    let newState = sectionsState
+    newState[event.target.parentElement.id].included = false
+    setSectionsState([...newState])
+  }
+
   return (
     <div>
 
       <h3>Included Sections</h3>
       { sectionsState.map((item, i) => {
-        return item.included ? <div onClick={(event) => chooseEditor(event)} id={i}><Section data={item} /></div> : null
+        return item.included ? <div onClick={(event) => chooseEditor(event)} id={i}><Section data={item} />
+        <div onClick={(event => removeItem(event))}>🗑</div><div onClick={(event) => resetItem(event)}>reset</div>
+        </div> : null
       }) }
 
       <h3>Not Included</h3>
