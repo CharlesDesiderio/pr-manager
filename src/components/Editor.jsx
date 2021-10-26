@@ -2,12 +2,11 @@ import styles from './Editor.module.css'
 
 const Editor = (props) => {
 
-    let completeData = `${props.data.title}  \n`
-    completeData += `${props.data.text}  \n`
+    let completeData = `${props.data.text}`
 
   return (
-    <div>
-      <textarea value={completeData} />
+    <div><h3>{props.data.title}</h3>
+      <textarea value={completeData} onChange={(event) => props.editData(event)} />
     </div>
   )
 }

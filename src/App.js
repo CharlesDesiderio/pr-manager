@@ -42,9 +42,20 @@ const App = () => {
   let [sectionsState, setSectionsState] = useState(sectionsArray)
   let [currentItem, setCurrentItem] = useState(0)
 
-  const addItem = (event) => {
-    // alert(event.currentTarget.id)
+  const chooseEditor = (event) => {
     setCurrentItem(parseInt(event.currentTarget.id))
+  }
+
+  const addSection = (event) => {
+    let newState = sectionsState
+    newState[event.currentTarget.id].included = true
+    setSectionsState([...newState])
+  }
+
+  const handleDataChange = (event) => {
+    let newState = sectionsState
+    newState[currentItem].text = event.target.value
+    setSectionsState([...newState])
   }
 
   return (
@@ -52,16 +63,16 @@ const App = () => {
 
       <h3>Included Sections</h3>
       { sectionsState.map((item, i) => {
-        return item.included ? <div onClick={(event) => addItem(event)} id={i}><Section data={item} /></div> : null
+        return item.included ? <div onClick={(event) => chooseEditor(event)} id={i}><Section data={item} /></div> : null
       }) }
 
       <h3>Not Included</h3>
       { sectionsState.map((item, i) => {
-        return item.included ? null : <div><Section data={item} /></div>
+        return item.included ? null : <div onClick={(event) => addSection(event)} id={i}><Section data={item} /></div>
       }) }
       <h3>Editor</h3>
 
-      <Editor data={sectionsState[currentItem]} />
+      <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
       <h3>Output</h3>
 
