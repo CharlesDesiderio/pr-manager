@@ -2,11 +2,21 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 
 const Output = (props) => {
+
+  let compiledData = ``
+
+  props.data.forEach((item) => {
+    if (item.included) {
+      compiledData += `${item.title}\n`
+      compiledData += `${item.text}\n`
+    }
+
+  })
+
   return (
     <div>
-      <ReactMarkdown>{props.data}</ReactMarkdown>
+      <ReactMarkdown>{compiledData}</ReactMarkdown>
     </div>
   )
-}
-
+  }
 export default Output
