@@ -10,62 +10,58 @@ const App = () => {
     {
       title: 'Background',
       text: `## This is a text sample I guess`,
-      included: true,
-      current: true
+      included: true
     },
     {
       title: `Description of changes`,
       text: `## This is sample text for changes`,
-      included: true,
-      current: false
+      included: true
     }, 
     {
       title: `Approach`,
       text: `## This is sample text for Approach`,
-      included: false,
-      current: false
+      included: false
     }, 
     {
       title: `Failure mitigation strategies`,
       text: `## This is sample text for mitigation `,
-      included: false,
-      current: false
+      included: false
     }, 
     {
       title: `Screenshots`,
       text: `## This is sample text for Screenshots`,
-      included: false,
-      current: false
+      included: false
     }, 
     {
       title: `Performance Impact`,
       text: `## This is sample text for Impact`,
-      included: false,
-      current: false
+      included: false
     }
   ]
 
   let [sectionsState, setSectionsState] = useState(sectionsArray)
+  let [currentItem, setCurrentItem] = useState(0)
 
-  let selectedItem = sectionsState.filter(item => item.current)
-
-  let [currentItem, setCurrentItem] = useState(selectedItem)
+  const addItem = (event) => {
+    // alert(event.currentTarget.id)
+    setCurrentItem(parseInt(event.currentTarget.id))
+  }
 
   return (
     <div>
 
       <h3>Included Sections</h3>
-      { sectionsState.map((item) => {
-        return item.included ? <Section data={item} /> : null
+      { sectionsState.map((item, i) => {
+        return item.included ? <div onClick={(event) => addItem(event)} id={i}><Section data={item} /></div> : null
       }) }
 
       <h3>Not Included</h3>
-      { sectionsState.map((item) => {
-        return item.included ? null : <Section data={item} />
+      { sectionsState.map((item, i) => {
+        return item.included ? null : <div><Section data={item} /></div>
       }) }
       <h3>Editor</h3>
 
-      <Editor data={currentItem[0]} />
+      <Editor data={sectionsState[currentItem]} />
 
       <h3>Output</h3>
 
