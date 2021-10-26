@@ -19,4 +19,5 @@ const Output = (props) => {
     </div>
   )
   }
+  
 export default Output

@@ -1,4 +1,13 @@
-.editor {
-  width: 500px;
-  height: 80vh;
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+.editor textarea {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1.25rem;
+  width: 95%;
+  height: 100vh;
+  color: white;
+  background-color: black;
+  border: none;
+  padding: 8px;
+  box-sizing: content-box;
 }

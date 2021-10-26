@@ -1,0 +1,36 @@
+.container {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1.5fr;
+}
+
+.section, .inactiveSection {
+  display: grid;
+  grid-template-columns: 80% 10% 10%;
+  margin: 8px 10px 8px 0;
+  border-radius: 0 15px 15px 0;
+  padding: 5px;
+  background-color: lightgray;
+  align-items: center;
+  font-weight: 500;
+}
+
+.section:hover {
+  cursor: pointer;
+}
+
+.inactiveSection {
+  grid-template-columns: 90% 10%;
+}
+
+button {
+  border: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+button:hover {
+  cursor: pointer;
+}
