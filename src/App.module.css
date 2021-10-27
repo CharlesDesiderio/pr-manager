@@ -12,6 +12,14 @@ body {
   grid-template-columns: 1fr 1.5fr 1.5fr;
 }
 
+.sectionContainer {
+  background-image: radial-gradient(rgba(24, 49, 83, .1) 20%, #ffffff 20%);
+  background-position: 0 0;
+  background-size: 10px 10px;
+  height: 100%;
+  width: 100%;
+}
+
 .section, .inactiveSection {
   display: grid;
   grid-template-columns: 80% 10% 10%;
@@ -65,5 +73,5 @@ body {
 }
 
 .selected {
-  background-color: palegoldenrod;
+  background-color: #fab003
 }
