@@ -13,7 +13,9 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const App = () => {
 
-  let sectionsArray = [
+
+  // Default values for sections
+  const sectionsArray = [
     {
       title: `Background`,
       text: `## Background\n\nSample text goes here.`,
@@ -78,46 +80,18 @@ const App = () => {
       title: `Customer Impact`,
       text: `## Customer Impact\n\nSample text goes here.`,
       included: false
-    },
-    // {
-    //   title: 'Background',
-    //   text: `## This is a text sample I guess`,
-    //   included: true
-    // },
-    // {
-    //   title: `Description of changes`,
-    //   text: `## This is sample text for changes\n\nTesting something  `,
-    //   included: true
-    // }, 
-    // {
-    //   title: `Approach`,
-    //   text: `## This is sample text for Approach`,
-    //   included: false
-    // }, 
-    // {
-    //   title: `Failure mitigation strategies`,
-    //   text: `## This is sample text for mitigation `,
-    //   included: false
-    // }, 
-    // {
-    //   title: `Screenshots`,
-    //   text: `## This is sample text for Screenshots`,
-    //   included: false
-    // }, 
-    // {
-    //   title: `Performance Impact`,
-    //   text: `## This is sample text for Impact`,
-    //   included: false
-    // }
+    }
   ]
 
   let [sectionsState, setSectionsState] = useState(sectionsArray)
   let [currentItem, setCurrentItem] = useState(0)
 
+  // Select which section is currently selected and passed to the editor
   const chooseEditor = (i) => {
     setCurrentItem(parseInt(i))
   }
 
+  // Make a section part of the output
   const addSection = (i) => {
     let newState = sectionsState
     console.log(i)
@@ -125,12 +99,14 @@ const App = () => {
     setSectionsState([...newState])
   }
 
+  // State-managed inputs!
   const handleDataChange = (event) => {
     let newState = sectionsState
     newState[currentItem].text = event.target.value
     setSectionsState([...newState])
   }
 
+  // Revert a section back to its default values, taken from array used for initial state
   const resetItem = (i) => {
     let newState = sectionsState
     let initialArrayItem = sectionsArray.filter((item) => item.title === sectionsState[i].title)
@@ -138,13 +114,16 @@ const App = () => {
     setSectionsState([...newState])
   }
 
+  // Remove a section from output
   const removeItem = (i) => {
     let newState = sectionsState
     newState[i].included = false
     setSectionsState([...newState])
   }
 
+  // Shift the positions of items in the array corresponding to a drag event
   const handleDragEnd = (result) => {
+    if (!result.destination) return;
     let newState = sectionsState
     const [reorderedItem] = newState.splice(result.source.index, 1)
     newState.splice(result.destination.index, 0, reorderedItem)
@@ -177,6 +156,7 @@ const App = () => {
       )}
       </Droppable>
       </DragDropContext>
+
       <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
       <Output data={sectionsState} />
