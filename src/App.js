@@ -7,8 +7,9 @@ import Output from './components/Output'
 import Section from './components/Section'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { faBackward, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const App = () => {
 
@@ -143,23 +144,39 @@ const App = () => {
     setSectionsState([...newState])
   }
 
+  const handleDragEnd = (result) => {
+    let newState = sectionsState
+    const [reorderedItem] = newState.splice(result.source.index, 1)
+    newState.splice(result.destination.index, 0, reorderedItem)
+    setSectionsState(newState)
+    chooseEditor(result.destination.index)
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.sectionContainer}>
+      <DragDropContext onDragEnd={handleDragEnd}>
+      <Droppable droppableId='sectionItems'>
+      {(provided) => (
+      <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.sectionContainer} sectionItems `}>
         { sectionsState.map((item, i) => {
           return item.included ? 
-          <div key={i} onClick={(arrNum) => chooseEditor(i)} id={i} className={`${styles.section} ${i === currentItem ? styles.selected : ''}` } >
+          (<Draggable key={`drag-${i}`} draggableId={`drag-${i}`} index={i}>{(provided) => (<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} key={i} onClick={(arrNum) => chooseEditor(i)} id={i} className={`${styles.section} ${i === currentItem ? styles.selected : ''}` } >
             <Section data={item} />
             <FontAwesomeIcon onClick={(arrNum) => removeItem(i)} className={styles.faIcon} icon={faMinusCircle} />
             <FontAwesomeIcon onClick={(arrNum) => resetItem(i)} className={styles.faIcon} icon={faBackward} />
-          </div> : null
+            
+          </div>)}</Draggable>) : null
         }) }
+        {provided.placeholder}
         <div className={styles.divider}></div>
         { sectionsState.map((item, i) => {
           return item.included ? null : <div key={i} onClick={(arrNum) => chooseEditor(i)} className={`${styles.inactiveSection} ${i === currentItem ? styles.selected : ''}` } id={i}><Section data={item} /><FontAwesomeIcon onClick={(arrNum) => addSection(i)} className={styles.faIcon} icon={faPlusCircle} /></div>
         }) }
+      
       </div>
-
+      )}
+      </Droppable>
+      </DragDropContext>
       <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
       <Output data={sectionsState} />
