@@ -7,7 +7,7 @@ const Output = (props) => {
 
   props.data.forEach((item) => {
     if (item.included) {
-      compiledData += `${item.title}\n`
+      compiledData += `\n${item.title}\n`
       compiledData += `${item.text}\n`
     }
 

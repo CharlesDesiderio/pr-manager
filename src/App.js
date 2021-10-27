@@ -6,6 +6,10 @@ import Editor from './components/Editor'
 import Output from './components/Output'
 import Section from './components/Section'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faBackward, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+
 const App = () => {
 
   let sectionsArray = [
@@ -44,13 +48,14 @@ const App = () => {
   let [sectionsState, setSectionsState] = useState(sectionsArray)
   let [currentItem, setCurrentItem] = useState(0)
 
-  const chooseEditor = (event) => {
-    setCurrentItem(parseInt(event.currentTarget.id))
+  const chooseEditor = (i) => {
+    setCurrentItem(parseInt(i))
   }
 
-  const addSection = (event) => {
+  const addSection = (i) => {
     let newState = sectionsState
-    newState[event.target.parentElement.id].included = true
+    console.log(i)
+    newState[i].included = true
     setSectionsState([...newState])
   }
 
@@ -60,15 +65,15 @@ const App = () => {
     setSectionsState([...newState])
   }
 
-  const resetItem = (event) => {
+  const resetItem = (i) => {
     let newState = sectionsState
-    newState[event.target.parentElement.id].text = sectionsArray[event.target.parentElement.id].text
+    newState[i].text = sectionsArray[i].text
     setSectionsState([...newState])
   }
 
-  const removeItem = (event) => {
+  const removeItem = (i) => {
     let newState = sectionsState
-    newState[event.target.parentElement.id].included = false
+    newState[i].included = false
     setSectionsState([...newState])
   }
 
@@ -77,15 +82,15 @@ const App = () => {
       <div>
         { sectionsState.map((item, i) => {
           return item.included ? 
-          <div onClick={(event) => chooseEditor(event)} id={i} className={styles.section} >
+          <div onClick={(arrNum) => chooseEditor(i)} id={i} className={styles.section} >
             <Section data={item} />
-            <button onClick={(event => removeItem(event))}>🗑</button>
-            <button onClick={(event) => resetItem(event)}>↩</button>
+            <FontAwesomeIcon onClick={(arrNum) => removeItem(i)} className={styles.faIcon} icon={faMinusCircle} />
+            <FontAwesomeIcon onClick={(arrNum) => resetItem(i)} className={styles.faIcon} icon={faBackward} />
           </div> : null
         }) }
-<hr />
+        <div className={styles.divider}></div>
         { sectionsState.map((item, i) => {
-          return item.included ? null : <div className={styles.inactiveSection} id={i}><Section data={item} /><button onClick={(event) => addSection(event)}>➕</button></div>
+          return item.included ? null : <div className={styles.inactiveSection} id={i}><Section data={item} /><FontAwesomeIcon onClick={(arrNum) => addSection(i)} className={styles.faIcon} icon={faPlusCircle} /></div>
         }) }
       </div>
 

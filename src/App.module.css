@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+body {
+  color: #183153;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
 .container {
   width: 100%;
   margin: auto;
@@ -11,28 +18,48 @@
   margin: 8px 10px 8px 0;
   border-radius: 0 15px 15px 0;
   padding: 5px;
-  background-color: lightgray;
+  background-color: white;
   align-items: center;
-  font-weight: 500;
+  font-weight: 700;
+  border-top: 1px solid #183153;
+  border-right: 3px solid #183153;
+  border-bottom: 3px solid #183153;
 }
 
-.section:hover {
+.section:hover, .inactiveSection:hover {
   cursor: pointer;
+  transform: scale(1.05);
+  transform-origin: left;
+  left: 0;
+  transition: .15s;
 }
 
 .inactiveSection {
   grid-template-columns: 90% 10%;
 }
 
-button {
+.faIcon {
+  display: block;
   border: none;
-  height: 36px;
-  width: 36px;
+  padding: .5rem;
   border-radius: 50%;
   margin: auto;
   text-align: center;
+  font-size: 1.25rem;
+  display: grid;
+  place-items: center;
+  background-color: #183153;
+  color: #ffd43b;
+  transition: .1s;
 }
 
-button:hover {
+.faIcon:hover {
   cursor: pointer;
+  background-color: #ffd43b;
+  color: #183153;
+  transform: scale(1.2);
+}
+
+.divider {
+  margin-top: 3rem;
 }
