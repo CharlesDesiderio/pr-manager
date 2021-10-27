@@ -63,3 +63,7 @@ body {
 .divider {
   margin-top: 3rem;
 }
+
+.selected {
+  background-color: palegoldenrod;
+}

@@ -82,7 +82,7 @@ const App = () => {
       <div>
         { sectionsState.map((item, i) => {
           return item.included ? 
-          <div onClick={(arrNum) => chooseEditor(i)} id={i} className={styles.section} >
+          <div onClick={(arrNum) => chooseEditor(i)} id={i} className={`${styles.section} ${i === currentItem ? styles.selected : ''}` } >
             <Section data={item} />
             <FontAwesomeIcon onClick={(arrNum) => removeItem(i)} className={styles.faIcon} icon={faMinusCircle} />
             <FontAwesomeIcon onClick={(arrNum) => resetItem(i)} className={styles.faIcon} icon={faBackward} />
@@ -90,7 +90,7 @@ const App = () => {
         }) }
         <div className={styles.divider}></div>
         { sectionsState.map((item, i) => {
-          return item.included ? null : <div className={styles.inactiveSection} id={i}><Section data={item} /><FontAwesomeIcon onClick={(arrNum) => addSection(i)} className={styles.faIcon} icon={faPlusCircle} /></div>
+          return item.included ? null : <div onClick={(arrNum) => chooseEditor(i)} className={`${styles.inactiveSection} ${i === currentItem ? styles.selected : ''}` } id={i}><Section data={item} /><FontAwesomeIcon onClick={(arrNum) => addSection(i)} className={styles.faIcon} icon={faPlusCircle} /></div>
         }) }
       </div>
 
