@@ -22,7 +22,7 @@ body {
 
 .section, .inactiveSection {
   display: grid;
-  grid-template-columns: 80% 10% 10%;
+  grid-template-columns: 76% 12% 12%;
   margin: 8px 10px 8px 0;
   border-radius: 0 15px 15px 0;
   padding: 5px;
@@ -44,7 +44,7 @@ body {
 }
 
 .inactiveSection {
-  grid-template-columns: 90% 10%;
+  grid-template-columns: 88% 12%;
 }
 
 .faIcon {
@@ -60,6 +60,7 @@ body {
   background-color: #183153;
   color: #ffd43b;
   transition: .1s;
+  
 }
 
 .faIcon:hover {
@@ -100,4 +101,25 @@ body {
 
 .outputToggleSelected {
   background-color: #fab003;
+}
+
+.resetButton {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  width: 75px;
+  height: 50px;
+  top: 0;
+  right: 0;
+  border-left: 3px solid #183153;
+  border-bottom: 3px solid #183153;
+  border-radius: 0 0 0 15px;
+}
+
+.resetButton:hover {
+  background-color: #F88787;
+  cursor: pointer;
+  border-color: red;
+  color: red;
 }

@@ -7,7 +7,7 @@ import Output from './components/Output'
 import Section from './components/Section'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBackward, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faBackward, faPlusCircle, faMinusCircle, faSave } from '@fortawesome/free-solid-svg-icons'
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -18,67 +18,67 @@ const App = () => {
   const sectionsArray = [
     {
       title: `Background`,
-      text: `## Background\n\nSample text goes here.`,
+      text: `## Background\n\nAn explanation of the background situation in regards to this PR.`,
       included: true
     },
     {
       title: `Description of Changes`,
-      text: `## Description of Changes\n\nSample text goes here.`,
+      text: `## Description of Changes\n\nA description of what changes were made to the project.`,
       included: true
     },
     {
       title: `Approach`,
-      text: `## Approach\n\nSample text goes here.`,
+      text: `## Approach\n\nA methodology of how the changes were designed and implemented.`,
       included: false
     },
     {
       title: `Failure Mitigation Strategies`,
-      text: `## Failure Mitigation Strategies\n\nSample text goes here.`,
+      text: `## Failure Mitigation Strategies\n\nAn explanation of what changes were made to prevent any failures.`,
       included: false
     },
     {
       title: `Screenshots`,
-      text: `## Screenshots\n\nSample text goes here.`,
+      text: `## Screenshots\n\nLinks to screenshots.`,
       included: false
     },
     {
       title: `Performance Impact`,
-      text: `## Performance Impact\n\nSample text goes here.`,
+      text: `## Performance Impact\n\nHow does this PR affect performance, either positively or negatively?`,
       included: false
     },
     {
       title: `Expected Behavior`,
-      text: `## Expected Behavior\n\nSample text goes here.`,
+      text: `## Expected Behavior\n\nWhat this PR intends to accomplish in regards to behavior.`,
       included: false
     },
     {
       title: `Actual Behavior`,
-      text: `## Actual Behavior\n\nSample text goes here.`,
+      text: `## Actual Behavior\n\nWhat his PR actually accomplishes in regards to behavior.`,
       included: false
     },
     {
       title: `Observability`,
-      text: `## Observability\n\nSample text goes here.`,
+      text: `## Observability\n\nDetails related to observability.`,
       included: false
     },
     {
       title: `Type of Change`,
-      text: `## Type of Change\n\nSample text goes here.`,
+      text: `## Type of Change\n\nA detailed description of the way the project has been changed.`,
       included: false
     },
     {
       title: `What Issue Does it Fix`,
-      text: `## What Issue Does it Fix\n\nSample text goes here.`,
+      text: `## What Issue Does it Fix\n\nWhich specific bug or error was fixed.`,
       included: false
     },
     {
       title: `How Was It Tested`,
-      text: `## How Was It Tested\n\nSample text goes here.`,
+      text: `## How Was It Tested\n\nAn explanation of testing methodology.`,
       included: false
     },
     {
       title: `Customer Impact`,
-      text: `## Customer Impact\n\nSample text goes here.`,
+      text: `## Customer Impact\n\nHow these changes will impact current customers and users.`,
       included: false
     }
   ]
@@ -156,6 +156,12 @@ const App = () => {
     window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
   }
 
+  const clearStorage = () => {
+    localStorage.removeItem("prManagerState")
+    setSectionsState(sectionsArray)
+    setCurrentItem(0)
+  }
+
   return (
     <div className={styles.container}>
       <DragDropContext onDragEnd={handleDragEnd}>
@@ -188,6 +194,8 @@ const App = () => {
         <Output viewType={previewState} data={sectionsState} />
 
       </div>
+      {window.localStorage.getItem("prManagerState") ?  <div onClick={clearStorage} className={styles.resetButton}><FontAwesomeIcon icon={faSave} />Reset All</div> : null }
+      
     </div>
   )
 }
