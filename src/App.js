@@ -191,7 +191,7 @@ const App = () => {
       <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
       <div><button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button>
-        <Output viewType={previewState} data={sectionsState} />
+      <Output viewType={previewState} data={sectionsState} />
 
       </div>
       {window.localStorage.getItem("prManagerState") ?  <div onClick={clearStorage} className={styles.resetButton}><FontAwesomeIcon icon={faSave} />Reset All</div> : null }

@@ -16,7 +16,7 @@ const Output = (props) => {
 
   return (
     <div>
-      { props.viewType === 'pre' ? (<ReactMarkdown className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
+      { props.viewType === 'pre' ? (<ReactMarkdown escapeHtml={false} className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
 
       { props.data.map((item, i) => {
         let replaced = item.text.split(/\n/g).filter((item) => item !== '')
