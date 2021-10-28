@@ -133,7 +133,12 @@ body {
   color: red;
 }
 
+.buttonContainer {
+  height: 55px;
+}
+
 .outputContainer {
   display: grid;
   height: 100vh;
+  grid-auto-rows: 55px auto;
 }
