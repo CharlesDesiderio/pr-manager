@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+import styles from './Output.module.css'
 
 const Output = (props) => {
 
@@ -13,7 +16,7 @@ const Output = (props) => {
 
   return (
     <div>
-      { props.viewType === 'pre' ? (<ReactMarkdown>{compiledData}</ReactMarkdown>) : '' }
+      { props.viewType === 'pre' ? (<ReactMarkdown className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
 
       { props.data.map((item, i) => {
         let replaced = item.text.split(/\n/g).filter((item) => item !== '')

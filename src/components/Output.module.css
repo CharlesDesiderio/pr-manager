@@ -1,0 +1,16 @@
+.markdown tr, .markdown td, .markdown th {
+  padding: 6px 12px;
+  margin: 0;
+  background-color: white;
+  
+}
+
+.markdown th {
+  background-color: #f6f8fa;
+}
+
+.markdown table {
+  border-spacing: 1px;
+  
+  background-color: lightgray;
+}
