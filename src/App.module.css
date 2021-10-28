@@ -38,7 +38,7 @@ body {
 
 .section:hover, .inactiveSection:hover {
   cursor: pointer;
-  transform: scale(1.05);
+  transform: scaleX(1.008);
   transform-origin: left;
   left: 0;
   transition: .15s;
@@ -62,14 +62,15 @@ body {
   background-color: #183153;
   color: #ffd43b;
   transition: .1s;
-  
+  border: 2px solid #183153;
 }
 
 .faIcon:hover {
   cursor: pointer;
   background-color: #ffd43b;
   color: #183153;
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
+  border: 2px solid #183153;
 }
 
 .divider {
