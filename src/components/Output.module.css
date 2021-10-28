@@ -1,3 +1,10 @@
+.output {
+  height: 100%;
+  padding: 0;
+  padding-left: 1rem;
+  overflow-y: scroll;
+}
+
 .markdown tr, .markdown td, .markdown th {
   padding: 6px 12px;
   margin: 0;

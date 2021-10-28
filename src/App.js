@@ -167,7 +167,7 @@ const App = () => {
       <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId='sectionItems'>
       {(provided) => (
-      <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.sectionContainer} sectionItems `}>
+      <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.sectionContainer} ${styles.sectionItems}`}>
         { sectionsState.map((item, i) => {
           return item.included ? 
           (<Draggable key={`drag-${i}`} draggableId={`drag-${i}`} index={i}>{(provided) => (<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} key={i} onClick={(arrNum) => chooseEditor(i)} id={i} className={`${styles.section} ${i === currentItem ? styles.selected : ''}` } >
@@ -190,7 +190,10 @@ const App = () => {
 
       <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
-      <div><button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button>
+      <div className={styles.outputContainer}>
+        <div className={styles.buttonContainer}>
+        <button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button>
+        </div>
       <Output viewType={previewState} data={sectionsState} />
 
       </div>

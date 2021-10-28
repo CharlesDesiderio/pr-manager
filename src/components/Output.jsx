@@ -15,7 +15,7 @@ const Output = (props) => {
   })
 
   return (
-    <div>
+    <div className={styles.output}>
       { props.viewType === 'pre' ? (<ReactMarkdown escapeHtml={false} className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
 
       { props.data.map((item, i) => {
