@@ -83,12 +83,21 @@ const App = () => {
     }
   ]
 
-  let [sectionsState, setSectionsState] = useState(sectionsArray)
+  let initialSectionState
+
+  if (window.localStorage.getItem("prManagerState")) {
+    initialSectionState = JSON.parse(window.localStorage.getItem("prManagerState"))
+  } else {
+    initialSectionState = sectionsArray
+  }
+
+  let [sectionsState, setSectionsState] = useState(initialSectionState)
   let [currentItem, setCurrentItem] = useState(0)
+  let [previewState, setPreviewState] = useState('pre')
 
   // Select which section is currently selected and passed to the editor
   const chooseEditor = (i) => {
-    setCurrentItem(parseInt(i))
+    setCurrentItem(i)
   }
 
   // Make a section part of the output
@@ -97,6 +106,7 @@ const App = () => {
     console.log(i)
     newState[i].included = true
     setSectionsState([...newState])
+    window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
   }
 
   // State-managed inputs!
@@ -104,6 +114,7 @@ const App = () => {
     let newState = sectionsState
     newState[currentItem].text = event.target.value
     setSectionsState([...newState])
+    window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
   }
 
   // Revert a section back to its default values, taken from array used for initial state
@@ -112,6 +123,7 @@ const App = () => {
     let initialArrayItem = sectionsArray.filter((item) => item.title === sectionsState[i].title)
     newState[i].text = initialArrayItem[0].text
     setSectionsState([...newState])
+    window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
   }
 
   // Remove a section from output
@@ -119,16 +131,29 @@ const App = () => {
     let newState = sectionsState
     newState[i].included = false
     setSectionsState([...newState])
+    window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
+  }
+
+  const toggleOutput = (option) => {
+    if (option === 'pre') {
+      setPreviewState('pre')
+    }
+    else if (option === 'raw') {
+      setPreviewState('raw')
+    } else {
+      console.log('Hey stop that.')
+    }
   }
 
   // Shift the positions of items in the array corresponding to a drag event
   const handleDragEnd = (result) => {
     if (!result.destination) return;
-    let newState = sectionsState
+    let newState = Array.from(sectionsState)
     const [reorderedItem] = newState.splice(result.source.index, 1)
     newState.splice(result.destination.index, 0, reorderedItem)
+    setCurrentItem(result.destination.index)
     setSectionsState(newState)
-    chooseEditor(result.destination.index)
+    window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
   }
 
   return (
@@ -159,7 +184,10 @@ const App = () => {
 
       <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
-      <Output data={sectionsState} />
+      <div><button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button>
+        <Output viewType={previewState} data={sectionsState} />
+
+      </div>
     </div>
   )
 }

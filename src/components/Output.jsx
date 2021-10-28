@@ -7,15 +7,19 @@ const Output = (props) => {
 
   props.data.forEach((item) => {
     if (item.included) {
-      // compiledData += `\n${item.title}\n`
       compiledData += `${item.text}\n`
     }
-
   })
 
   return (
     <div>
-      <ReactMarkdown>{compiledData}</ReactMarkdown>
+      { props.viewType === 'pre' ? (<ReactMarkdown>{compiledData}</ReactMarkdown>) : '' }
+
+      { props.data.map((item, i) => {
+        let replaced = item.text.split(/\n/g).filter((item) => item !== '')
+        return item.included && props.viewType === 'raw' ?  <span key={`raw-${i}`}><br />{replaced.map((item) => <span>{item}<br /><br /></span>)}</span> : ''
+      })}
+
     </div>
   )
   }
