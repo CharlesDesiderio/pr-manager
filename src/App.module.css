@@ -134,6 +134,7 @@ body {
 }
 
 .buttonContainer {
+  position: relative;
   height: 55px;
 }
 
@@ -141,4 +142,17 @@ body {
   display: grid;
   height: 100vh;
   grid-auto-rows: 55px auto;
+}
+
+.gitLink {
+
+}
+
+a, a:visited   {
+  color: #183153;
+  font-size: 1.5rem;
+  display: block;
+  position: absolute;
+  right: 100px;
+  top: 10px;
 }
