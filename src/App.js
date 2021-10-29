@@ -7,7 +7,7 @@ import Output from './components/Output'
 import Section from './components/Section'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBackward, faPlusCircle, faMinusCircle, faSave } from '@fortawesome/free-solid-svg-icons'
+import { faBackward, faPlusCircle, faMinusCircle, faSave, faBars, faCode, faNewspaper } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -165,6 +165,11 @@ const App = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.switches}>
+      <FontAwesomeIcon className={styles.faIcon} icon={faBars} />
+      <FontAwesomeIcon className={styles.faIcon} icon={faCode} />
+      <FontAwesomeIcon className={styles.faIcon} icon={faNewspaper} />
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId='sectionItems'>
       {(provided) => (
@@ -189,7 +194,7 @@ const App = () => {
       </Droppable>
       </DragDropContext>
 
-      <Editor data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
+      <Editor className={styles.appEditor} data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
       <div className={styles.outputContainer}>
         <div className={styles.buttonContainer}>

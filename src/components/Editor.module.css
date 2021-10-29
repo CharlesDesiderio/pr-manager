@@ -3,13 +3,14 @@
 .editor {
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
 
 .editor textarea {
   font-family: 'Source Code Pro', monospace;
   font-size: 1.25rem;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   color: white;
   background-color: black;
   border: none;
@@ -18,4 +19,13 @@
   margin: 0;
   padding: 0;
   padding-left: .25rem;
+}
+
+@media (max-width: 800px) {
+
+  .editor {
+    height: calc(100vh - 50px);
+    display: none;
+  }
+
 }
