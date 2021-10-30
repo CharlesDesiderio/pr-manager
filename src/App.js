@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import styles from './App.module.css'
 
@@ -14,6 +14,9 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const App = () => {
 
+  const sectionsRef  = useRef()
+  const editorRef = useRef()
+  const outputRef = useRef()
 
   // Default values for sections
   const sectionsArray = [
@@ -163,16 +166,45 @@ const App = () => {
     setCurrentItem(0)
   }
 
+  const swapActive = (ref) => {
+
+    switch(ref) {
+      case 'sections':
+        console.log(sectionsRef)
+        sectionsRef.current.style.display = 'block'
+        editorRef.current.style.display = 'none'
+        outputRef.current.style.display = 'none'
+        break;
+
+      case 'editor':
+        sectionsRef.current.style.display = 'none'
+        editorRef.current.style.display = 'block'
+        outputRef.current.style.display = 'none'
+        break;
+
+      case 'output':
+        sectionsRef.current.style.display = 'none'
+        editorRef.current.style.display = 'none'
+        outputRef.current.style.display = 'block'
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.switches}>
-      <FontAwesomeIcon className={styles.faIcon} icon={faBars} />
-      <FontAwesomeIcon className={styles.faIcon} icon={faCode} />
-      <FontAwesomeIcon className={styles.faIcon} icon={faNewspaper} />
+      <FontAwesomeIcon onClick={() => swapActive('sections')} className={styles.faIcon} icon={faBars} />
+      <FontAwesomeIcon onClick={() => swapActive('editor')} className={styles.faIcon} icon={faCode} />
+      <FontAwesomeIcon onClick={() => swapActive('output')} className={styles.faIcon} icon={faNewspaper} />
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId='sectionItems'>
       {(provided) => (
+      <div ref={sectionsRef} >
       <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.sectionContainer} ${styles.sectionItems}`}>
         { sectionsState.map((item, i) => {
           return item.included ? 
@@ -190,13 +222,14 @@ const App = () => {
         }) }
       
       </div>
+      </div>
       )}
       </Droppable>
       </DragDropContext>
 
-      <Editor className={styles.appEditor} data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
+      <Editor ref={editorRef} className={styles.appEditor} data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
-      <div className={styles.outputContainer}>
+      <div ref={outputRef} className={styles.outputContainer}>
         <div className={styles.buttonContainer}>
         <button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button><a className="{styles.gitLink}" rel="noreferrer" target="_blank" href="https://github.com/CharlesDesiderio/pr-manager"><FontAwesomeIcon icon={faGithub} /></a>
         </div>
