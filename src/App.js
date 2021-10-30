@@ -17,6 +17,7 @@ const App = () => {
   const sectionsRef  = useRef()
   const editorRef = useRef()
   const outputRef = useRef()
+  const eraseWindow = useRef()
 
   // Default values for sections
   const sectionsArray = [
@@ -107,7 +108,6 @@ const App = () => {
   // Make a section part of the output
   const addSection = (i) => {
     let newState = sectionsState
-    console.log(i)
     newState[i].included = true
     setSectionsState([...newState])
     window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
@@ -170,22 +170,24 @@ const App = () => {
 
     switch(ref) {
       case 'sections':
-        console.log(sectionsRef)
         sectionsRef.current.style.display = 'block'
         editorRef.current.style.display = 'none'
         outputRef.current.style.display = 'none'
+        if (window.localStorage.getItem("prManagerState")) eraseWindow.current.style.display = 'none'
         break;
 
       case 'editor':
         sectionsRef.current.style.display = 'none'
         editorRef.current.style.display = 'block'
         outputRef.current.style.display = 'none'
+        if (window.localStorage.getItem("prManagerState")) eraseWindow.current.style.display = 'none'
         break;
 
       case 'output':
         sectionsRef.current.style.display = 'none'
         editorRef.current.style.display = 'none'
         outputRef.current.style.display = 'block'
+        if (window.localStorage.getItem("prManagerState")) eraseWindow.current.style.display = 'grid'
         break;
 
       default:
@@ -236,7 +238,7 @@ const App = () => {
       <Output viewType={previewState} data={sectionsState} />
 
       </div>
-      {window.localStorage.getItem("prManagerState") ?  <div onClick={clearStorage} className={styles.resetButton}><FontAwesomeIcon icon={faSave} />Reset All</div> : null }
+      {window.localStorage.getItem("prManagerState") ?  <div ref={eraseWindow} onClick={clearStorage} className={styles.resetButton}><FontAwesomeIcon icon={faSave} />Reset All</div> : null }
       
     </div>
   )
