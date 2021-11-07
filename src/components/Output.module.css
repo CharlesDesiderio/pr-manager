@@ -25,3 +25,27 @@
   padding: 8px;
   background-color: #f6f8fa;
 }
+
+.copyText {
+  position: absolute;
+  right: 10px;
+  color: #183153;
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 1rem;
+  background-color: white;
+  display: block;
+  padding: 8px 12px;
+  border: 1px solid #183153;
+  border-right: 3px solid #183153;
+  border-bottom: 3px solid #183153;
+  border-radius: 15px;
+  margin: 8px;
+  transition: .2s;
+}
+
+.copyText:hover {
+  cursor: pointer;
+  background-color: #FDD43B;
+  transform: scale(1.05);
+  transition: .2s;
+}
