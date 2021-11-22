@@ -2,9 +2,9 @@ import styles from './Section.module.css'
 
 import draggable from '../images/draggable.svg'
 
-const Section = (props) => {
+const Section = ({ data }) => {
   return (
-    <div className={ props.data.included ?  styles.singleSection : ''} >{ props.data.included ? <img src={draggable} alt="Drag Icon" /> : ''  }  { props.data.title }</div>
+    <div className={ data.included ?  styles.singleSection : ''} >{ data.included ? <img src={draggable} alt="Drag Icon" /> : ''  }  { data.title }</div>
   )
 }
 

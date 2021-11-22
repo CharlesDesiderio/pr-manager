@@ -4,13 +4,13 @@ import remarkGfm from 'remark-gfm'
 
 import styles from './Output.module.css'
 
-const Output = (props) => {
+const Output = ({ data, viewType }) => {
 
   let copyTextButtonRef = useRef()
 
   let compiledData = ``
 
-  props.data.forEach((item) => {
+  data.forEach((item) => {
     if (item.included) {
       compiledData += `${item.text}\n`
     }
@@ -28,12 +28,12 @@ const Output = (props) => {
 
   return (
     <div className={styles.output}>
-      { props.viewType === 'raw' ? <button ref={copyTextButtonRef} className={styles.copyText} onClick={copyText}>Copy</button> : '' }
-      { props.viewType === 'pre' ? (<ReactMarkdown escapeHtml={false} className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
+      { viewType === 'raw' ? <button ref={copyTextButtonRef} className={styles.copyText} onClick={copyText}>Copy</button> : '' }
+      { viewType === 'pre' ? (<ReactMarkdown escapeHtml={false} className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
 
-      { props.data.map((item, i) => {
+      { data.map((item, i) => {
         let replaced = item.text.split(/\n/g).filter((item) => item !== '')
-        return item.included && props.viewType === 'raw' ? <span key={`raw-${i}`}><br />{replaced.map((item) => <span>{item}<br /><br /></span>)}</span> : ''
+        return item.included && viewType === 'raw' ? <span key={`raw-${i}`}><br />{replaced.map((item) => <span>{item}<br /><br /></span>)}</span> : ''
       })}
 
     </div>
