@@ -1,16 +1,25 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
 import styles from './Output.module.css'
 
-const Output = ({ data, viewType }) => {
+interface outputProps {
+  data: {
+    title: String
+    text: String
+    included: Boolean
+  }[]
+  viewType: String
+}
 
-  let copyTextButtonRef = useRef()
+const Output = ({ data, viewType }: outputProps): JSX.Element => {
+
+  let copyTextButtonRef = useRef<any>()
 
   let compiledData = ``
 
-  data.forEach((item) => {
+  data.forEach((item: { title: String, text: String, included: Boolean }) => {
     if (item.included) {
       compiledData += `${item.text}\n`
     }
@@ -29,7 +38,7 @@ const Output = ({ data, viewType }) => {
   return (
     <div className={styles.output}>
       { viewType === 'raw' ? <button ref={copyTextButtonRef} className={styles.copyText} onClick={copyText}>Copy</button> : '' }
-      { viewType === 'pre' ? (<ReactMarkdown escapeHtml={false} className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
+      { viewType === 'pre' ? (<ReactMarkdown className={styles.markdown} children={compiledData} remarkPlugins={[remarkGfm]} />) : '' }
 
       { data.map((item, i) => {
         let replaced = item.text.split(/\n/g).filter((item) => item !== '')

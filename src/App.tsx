@@ -6,18 +6,18 @@ import Editor from './components/Editor'
 import Output from './components/Output'
 import Section from './components/Section'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBackward, faPlusCircle, faMinusCircle, faSave, faBars, faCode, faNewspaper } from '@fortawesome/free-solid-svg-icons'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { FaBackward, FaPlusCircle, FaMinusCircle, FaSave, FaBars, FaCode, FaNewspaper, FaCircle, FaGithub } from 'react-icons/fa'
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const App = () => {
+const App = (): JSX.Element => {
 
-  const sectionsRef  = useRef()
-  const editorRef = useRef()
-  const outputRef = useRef()
-  const eraseWindow = useRef()
+  const sectionsRef = useRef<any>()
+  const editorRef = useRef<any>()
+  const outputRef = useRef<any>()
+  const eraseWindow = useRef<any>()
 
   // Default values for sections
   const sectionsArray = [
@@ -88,10 +88,10 @@ const App = () => {
     }
   ]
 
-  let initialSectionState
+  let initialSectionState = sectionsArray
 
   if (window.localStorage.getItem("prManagerState")) {
-    initialSectionState = JSON.parse(window.localStorage.getItem("prManagerState"))
+    initialSectionState = JSON.parse(window.localStorage.getItem("prManagerState") || '{}')
   } else {
     initialSectionState = sectionsArray
   }
@@ -101,12 +101,12 @@ const App = () => {
   let [previewState, setPreviewState] = useState('pre')
 
   // Select which section is currently selected and passed to the editor
-  const chooseEditor = (i) => {
+  const chooseEditor = (i: number) => {
     setCurrentItem(i)
   }
 
   // Make a section part of the output
-  const addSection = (i) => {
+  const addSection = (i: number) => {
     let newState = sectionsState
     newState[i].included = true
     setSectionsState([...newState])
@@ -114,7 +114,7 @@ const App = () => {
   }
 
   // State-managed inputs!
-  const handleDataChange = (event) => {
+  const handleDataChange = (event: any) => {
     let newState = sectionsState
     newState[currentItem].text = event.target.value
     setSectionsState([...newState])
@@ -122,7 +122,7 @@ const App = () => {
   }
 
   // Revert a section back to its default values, taken from array used for initial state
-  const resetItem = (i) => {
+  const resetItem = (i: number) => {
     let newState = sectionsState
     let initialArrayItem = sectionsArray.filter((item) => item.title === sectionsState[i].title)
     newState[i].text = initialArrayItem[0].text
@@ -131,14 +131,14 @@ const App = () => {
   }
 
   // Remove a section from output
-  const removeItem = (i) => {
+  const removeItem = (i: number) => {
     let newState = sectionsState
     newState[i].included = false
     setSectionsState([...newState])
     window.localStorage.setItem("prManagerState", JSON.stringify(sectionsState))
   }
 
-  const toggleOutput = (option) => {
+  const toggleOutput = (option: string) => {
     if (option === 'pre') {
       setPreviewState('pre')
     }
@@ -150,7 +150,7 @@ const App = () => {
   }
 
   // Shift the positions of items in the array corresponding to a drag event
-  const handleDragEnd = (result) => {
+  const handleDragEnd = (result: any) => {
     if (!result.destination) return;
     let newState = Array.from(sectionsState)
     const [reorderedItem] = newState.splice(result.source.index, 1)
@@ -166,7 +166,7 @@ const App = () => {
     setCurrentItem(0)
   }
 
-  const swapActive = (ref) => {
+  const swapActive = (ref: string) => {
 
     switch(ref) {
       case 'sections':
@@ -199,28 +199,28 @@ const App = () => {
   return (
     <div className={styles.container}>
       <div className={styles.switches}>
-      <FontAwesomeIcon onClick={() => swapActive('sections')} className={styles.faIcon} icon={faBars} />
-      <FontAwesomeIcon onClick={() => swapActive('editor')} className={styles.faIcon} icon={faCode} />
-      <FontAwesomeIcon onClick={() => swapActive('output')} className={styles.faIcon} icon={faNewspaper} />
+      <div onClick={() => swapActive('sections')} className={styles.faIcon}> <FaCircle /> </div>
+      <div onClick={() => swapActive('editor')} className={styles.faIcon}> <FaCode /></div>
+      <div onClick={() => swapActive('output')} className={styles.faIcon}> <FaNewspaper /></div>
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId='sectionItems'>
       {(provided) => (
       <div ref={sectionsRef} >
       <div {...provided.droppableProps} ref={provided.innerRef} className={`${styles.sectionContainer} ${styles.sectionItems}`}>
-        { sectionsState.map((item, i) => {
+        { sectionsState.map((item, i: any) => {
           return item.included ? 
           (<Draggable key={`drag-${i}`} draggableId={`drag-${i}`} index={i}>{(provided) => (<div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} key={i} onClick={(arrNum) => chooseEditor(i)} id={i} className={`${styles.section} ${i === currentItem ? styles.selected : ''}` } >
             <Section data={item} />
-            <FontAwesomeIcon onClick={(arrNum) => removeItem(i)} className={styles.faIcon} icon={faMinusCircle} />
-            <FontAwesomeIcon onClick={(arrNum) => resetItem(i)} className={styles.faIcon} icon={faBackward} />
+            <div onClick={(arrNum) => removeItem(i)} className={styles.faIcon}> <FaMinusCircle /></div>
+            <div onClick={(arrNum) => resetItem(i)} className={styles.faIcon}> <FaBackward /></div>
             
           </div>)}</Draggable>) : null
         }) }
         {provided.placeholder}
         <div className={styles.divider}></div>
-        { sectionsState.map((item, i) => {
-          return item.included ? null : <div key={i} onClick={(arrNum) => chooseEditor(i)} className={`${styles.inactiveSection} ${i === currentItem ? styles.selected : ''}` } id={i}><Section data={item} /><FontAwesomeIcon onClick={(arrNum) => addSection(i)} className={styles.faIcon} icon={faPlusCircle} /></div>
+        { sectionsState.map((item, i: any) => {
+          return item.included ? null : <div key={i} onClick={(arrNum) => chooseEditor(i)} className={`${styles.inactiveSection} ${i === currentItem ? styles.selected : ''}` } id={i}><Section data={item} /><div onClick={(arrNum) => addSection(i)} className={styles.faIcon}><FaPlusCircle /></div></div>
         }) }
       
       </div>
@@ -229,16 +229,17 @@ const App = () => {
       </Droppable>
       </DragDropContext>
 
-      <Editor ref={editorRef} className={styles.appEditor} data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
+      {/* className={styles.appEditor} */}
+      <Editor ref={editorRef} data={sectionsState[currentItem]} editData={(event) => handleDataChange(event)} />
 
       <div ref={outputRef} className={styles.outputContainer}>
         <div className={styles.buttonContainer}>
-        <button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button><a className="{styles.gitLink}" rel="noreferrer" target="_blank" href="https://github.com/CharlesDesiderio/pr-manager"><FontAwesomeIcon icon={faGithub} /></a>
+        <button className={`${styles.outputToggle} ${previewState === 'pre' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('pre')}>Preview</button><button className={`${styles.outputToggle} ${previewState === 'raw' ? `${styles.outputToggleSelected}` : ''  }`} onClick={() => toggleOutput('raw')}>Raw</button><a className="{styles.gitLink}" rel="noopener noreferrer" target="_blank" href="https://github.com/CharlesDesiderio/pr-manager"><FaGithub /></a>
         </div>
       <Output viewType={previewState} data={sectionsState} />
 
       </div>
-      {window.localStorage.getItem("prManagerState") ?  <div ref={eraseWindow} onClick={clearStorage} className={styles.resetButton}><FontAwesomeIcon icon={faSave} />Reset All</div> : null }
+      {window.localStorage.getItem("prManagerState") ?  <div ref={eraseWindow} onClick={clearStorage} className={styles.resetButton}><FaSave />Reset All</div> : null }
       
     </div>
   )
