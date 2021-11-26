@@ -1,7 +1,14 @@
 import React from 'react'
 import styles from './Editor.module.css'
 
-const Editor = React.forwardRef(({ data, editData }, ref) => {
+interface editorProps {
+  data: {
+    text: string
+  }
+  editData: React.Dispatch<React.SetStateAction<any>>
+}
+
+const Editor = React.forwardRef<HTMLInputElement, editorProps>(({ data, editData }: editorProps, ref: React.ForwardedRef<HTMLInputElement>): JSX.Element => {
 
   let completeData = `${data.text}`
 
