@@ -8,41 +8,9 @@ import Section from './components/Section'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// import { faGithub } from '@fortawesome/free-brands-svg-icons'
-
 import { FaBackward, FaPlusCircle, FaMinusCircle, FaSave, FaBars, FaCode, FaNewspaper, FaCircle, FaGithub } from 'react-icons/fa'
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-// library.add(faBackward, faPlusCircle, faMinusCircle, faSave, faBars, faCode, faNewspaper)
-
-// import {
-//   IconLookup,
-//   IconDefinition,
-//   findIconDefinition
-// } from '@fortawesome/fontawesome-svg-core'
-
-// const backwardLookup: IconLookup = { prefix: 'fas', iconName: 'backward' }
-// const backwardDefinition: IconDefinition = findIconDefinition(backwardLookup)
-
-// const plusLookup: IconLookup = { prefix: 'fas', iconName: 'plus' }
-// const plusDefinition: IconDefinition = findIconDefinition(plusLookup)
-
-// const minusLookup: IconLookup = { prefix: 'fas', iconName: 'minus' }
-// const minusDefinition: IconDefinition = findIconDefinition(minusLookup)
-
-// const saveLookup: IconLookup = { prefix: 'fas', iconName: 'save' }
-// const saveDefinition: IconDefinition = findIconDefinition(saveLookup)
-
-// const barsLookup: IconLookup = { prefix: 'fas', iconName: 'bars' }
-// const barsDefinition: IconDefinition = findIconDefinition(barsLookup)
-
-// const codeLookup: IconLookup = { prefix: 'fas', iconName: 'code' }
-// const codeDefinition: IconDefinition = findIconDefinition(codeLookup)
-
-// const newspaperLookup: IconLookup = { prefix: 'fas', iconName: 'newspaper' }
-// const newspaperDefinition: IconDefinition = findIconDefinition(newspaperLookup)
-
 
 const App = (): JSX.Element => {
 
