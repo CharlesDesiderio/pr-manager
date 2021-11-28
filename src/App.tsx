@@ -199,7 +199,7 @@ const App = (): JSX.Element => {
   return (
     <div className={styles.container}>
       <div className={styles.switches}>
-      <div onClick={() => swapActive('sections')} className={styles.faIcon}> <FaCircle /> </div>
+      <div onClick={() => swapActive('sections')} className={styles.faIcon}> <FaBars /> </div>
       <div onClick={() => swapActive('editor')} className={styles.faIcon}> <FaCode /></div>
       <div onClick={() => swapActive('output')} className={styles.faIcon}> <FaNewspaper /></div>
       </div>
