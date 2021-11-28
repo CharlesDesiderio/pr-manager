@@ -8,7 +8,7 @@ import Section from './components/Section'
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { FaBackward, FaPlusCircle, FaMinusCircle, FaSave, FaBars, FaCode, FaNewspaper, FaCircle, FaGithub } from 'react-icons/fa'
+import { FaBackward, FaPlusCircle, FaMinusCircle, FaSave, FaBars, FaCode, FaNewspaper, FaGithub } from 'react-icons/fa'
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
